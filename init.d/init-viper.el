@@ -1,0 +1,5 @@
+(req-package viper-cmd
+  :config (progn (global-set-key (kbd "M-f") 'viper-forward-word)
+		 (global-set-key (kbd "M-b") 'viper-backward-word)))
+
+(provide 'init-viper)
