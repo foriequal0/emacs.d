@@ -3,7 +3,7 @@
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
 ;; No splash screen please ... ;; I need this.
-;; (setq inhibit-startup-message t)
+(setq inhibit-startup-message t)
 
 ;; display time on console.
 (setq display-time-string-forms
