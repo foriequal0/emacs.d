@@ -5,8 +5,9 @@
 (req-package shm
   :config (progn (add-hook 'haskell-mode-hook 'structured-haskell-mode)))
 
-(req-package flymake-haskell-multi
-  :require (flymake haskell-mode)
-  :config (add-hook 'haskell-mode-hook 'flymake-haskell-multi-load))
+(req-package flycheck-haskell
+  :require flycheck
+  :init (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
+
 
 (provide 'init-haskell)
