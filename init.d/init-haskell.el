@@ -4,10 +4,14 @@
 
 (req-package haskell-mode
   :mode "\\.hs$"
-  :config (progn (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)))
+  :init (progn (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+	       ;; require 'cabal install hasktags'
+	       (custom-set-variables '(haskell-tags-on-save t)))
+  :config (progn (define-key haskell-mode-map [f8] 'haskell-navigate-imports)))
 
+;; require 'cabal install structured-haskell-mode'
 (req-package shm
-  :config (progn (add-hook 'haskell-mode-hook 'structured-haskell-mode)))
+  :init (progn (add-hook 'haskell-mode-hook 'structured-haskell-mode)))
 
 (req-package flycheck-haskell
   :require flycheck
