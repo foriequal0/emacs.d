@@ -1,0 +1,10 @@
+/elpa/
+/eshell/
+/backup/
+/auto-save-list/
+
+/ac-comphist.dat
+/ede-projects.el
+
+# emacs temporary files
+*/\#*\#
