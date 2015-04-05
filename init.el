@@ -17,16 +17,16 @@
 (eval-when-compile (package-initialize))
 
 (defun require-package (package)
-"refresh package archives, check package presence and install if it's not installed"
-(if (null (require package nil t))
-    (progn (let* ((ARCHIVES (if (null package-archive-contents)
-				(progn (package-refresh-contents)
-				       package-archive-contents)
-			      package-archive-contents))
-		  (AVAIL (assoc package ARCHIVES)))
-	     (if AVAIL
-		 (package-install package)))
-	   (require package))))
+  "refresh package archives, check package presence and install if it's not installed"
+  (if (null (require package nil t))
+      (progn (let* ((ARCHIVES (if (null package-archive-contents)
+				  (progn (package-refresh-contents)
+					 package-archive-contents)
+				package-archive-contents))
+		    (AVAIL (assoc package ARCHIVES)))
+	       (if AVAIL
+		   (package-install package)))
+	     (require package))))
 
 ;; req-package
 
