@@ -1,6 +1,12 @@
 (require 'cl)
 (require 'package)
 
+
+(defun reload-dotemacs-file ()
+  "reload your .emacs file without restarting Emacs"
+  (interactive) 
+  (load-file "~/.emacs.d/init.el"))
+
 (mapc (lambda(p) (push p package-archives))
       '(("marmalade" . "http://marmalade-repo.org/packages/")
 	("melpa" . "http://melpa.milkbox.net/packages/")
