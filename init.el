@@ -9,7 +9,7 @@
 
 (mapc (lambda(p) (push p package-archives))
       '(("marmalade" . "http://marmalade-repo.org/packages/")
-	("melpa" . "http://melpa.milkbox.net/packages/")
+	("melpa" . "http://melpa.org/packages/")
 	("elpa" . "http://tromey.com/elpa/")
 	("org" . "http://orgmode.org/elpa/")
 	("sunrise" . "http://joseito.republika.pl/sunrise-commander/")))
@@ -40,7 +40,6 @@
 (req-package-force load-dir
   :init (progn (require 'load-dir)
                (load-dir-one "~/.emacs.d/init.d")))
-
 
 ;; finish loading packages
 
