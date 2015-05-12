@@ -1,3 +1,4 @@
+; it needs CMake, libclang
 (req-package irony
   :require company
   :init (progn (add-hook 'c++-mode-hook 'irony-mode)

@@ -21,6 +21,7 @@
 
 ;; install cabal-install < 1.22 when ghc < 7.10
 ;; tested with cabal-install == 1.20, ghc 7.8.2
+;; require 'cabal install ghc-mod'
 (req-package ghc
   :require haskell-mode
   :init (progn (autoload 'ghc-init "ghc" nil t)
