@@ -9,6 +9,12 @@
       kept-old-versions 2    ; and how many of the old
       )
 
+(if (eq system-type 'darwin)
+    (progn (setq mac-option-key-is-meta nil)
+           (setq mac-command-key-is-meta t)
+           (setq mac-command-modifier 'meta)
+           (setq mac-option-modifier nil)))
+
 (defun reload-dotemacs-file ()
   "reload your .emacs file without restarting Emacs"
   (interactive) 
