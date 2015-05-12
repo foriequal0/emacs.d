@@ -23,6 +23,7 @@
 (mapc (lambda(p) (push p package-archives))
       '(("marmalade" . "http://marmalade-repo.org/packages/")
 	("melpa" . "http://melpa.org/packages/")
+	("gnu" . "http://elpa.gnu.org/packages/")
 	("elpa" . "http://tromey.com/elpa/")
 	("org" . "http://orgmode.org/elpa/")
 	("sunrise" . "http://joseito.republika.pl/sunrise-commander/")))
