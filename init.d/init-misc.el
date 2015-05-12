@@ -12,9 +12,6 @@
 
 (display-battery-mode 1)
 
-(require 'viper-cmd)
-(global-set-key (kbd "M-f") 'viper-forward-word)
-(global-set-key (kbd "M-b") 'viper-backward-word)
 (global-set-key (kbd "C-S-h") 'windmove-left)
 (global-set-key (kbd "C-S-l") 'windmove-right)
 (global-set-key (kbd "C-S-k") 'windmove-up)
