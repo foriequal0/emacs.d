@@ -9,3 +9,5 @@
 # emacs temporary files
 */\#*\#
 */.\#*
+
+/framegeometry
