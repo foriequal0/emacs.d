@@ -30,7 +30,9 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (req-package iresize)
-(req-package ibuffer-vc)
+(req-package ibuffer-vc
+  :config (ibuffer-vc-generate-filter-groups-by-vc-root))
+
 (req-package projectile
   :config (projectile-global-mode))
 (req-package magit)
