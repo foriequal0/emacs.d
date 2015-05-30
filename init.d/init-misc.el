@@ -35,6 +35,7 @@
 
 (req-package projectile
   :config (projectile-global-mode))
-(req-package magit)
+(req-package magit
+  :config (setq magit-last-seen-setup-instructions "1.4.0"))
 
 (provide 'init-misc)
