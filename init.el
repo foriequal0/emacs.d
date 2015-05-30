@@ -53,7 +53,8 @@
 
 (req-package-force load-dir
   :init (progn (require 'load-dir)
-               (load-dir-one "~/.emacs.d/init.d")))
+               (add-to-list 'load-dirs "~/.emacs.d/init.d")
+               (load-dirs-reload)))
 
 ;; finish loading packages
 
