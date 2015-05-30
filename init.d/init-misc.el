@@ -30,5 +30,9 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (req-package iresize)
+(req-package ibuffer-vc)
+(req-package projectile
+  :config (projectile-global-mode))
+(req-package magit)
 
 (provide 'init-misc)
