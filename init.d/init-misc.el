@@ -19,8 +19,8 @@
 (global-auto-revert-mode 1)
 
 (setq-default indent-tabs-mode t)
-(add-hook 'emacs-lisp-mode-hook indent-tabs-mode nil)
-(add-hook 'lisp-mode-hook indent-tabs-mode nil)
+(add-hook 'emacs-lisp-mode-hook (lambda () indent-tabs-mode nil))
+(add-hook 'lisp-mode-hook (lambda () indent-tabs-mode nil))
 
 (global-set-key (kbd "C-S-h") 'windmove-left)
 (global-set-key (kbd "C-S-l") 'windmove-right)
@@ -37,5 +37,11 @@
   :config (projectile-global-mode))
 (req-package magit
   :config (setq magit-last-seen-setup-instructions "1.4.0"))
+
+(req-package helm
+  :config (progn
+	    (require 'helm-config)
+	    (helm-mode 1)
+	    (helm-autoresize-mode 1)))
 
 (provide 'init-misc)
