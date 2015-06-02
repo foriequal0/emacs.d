@@ -30,8 +30,13 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (req-package iresize)
-(req-package ibuffer-vc
-  :config (ibuffer-vc-generate-filter-groups-by-vc-root))
+
+(req-package ibuffer-projectile
+  :config (add-hook 'ibuffer-hook
+		    (lambda ()
+		      (ibuffer-projectile-set-filter-groups)
+		      (unless (eq ibuffer-sorting-mode 'alphabetic)
+			        (ibuffer-do-sort-by-alphabetic)))))
 
 (req-package projectile
   :config (projectile-global-mode))
@@ -43,5 +48,9 @@
 	    (require 'helm-config)
 	    (helm-mode 1)
 	    (helm-autoresize-mode 1)))
+
+(req-package neotree
+  :config (progn
+	    (global-set-key [f8] 'neotree-toggle)))
 
 (provide 'init-misc)
