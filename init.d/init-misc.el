@@ -22,10 +22,8 @@
 (add-hook 'emacs-lisp-mode-hook (lambda () indent-tabs-mode nil))
 (add-hook 'lisp-mode-hook (lambda () indent-tabs-mode nil))
 
-(global-set-key (kbd "C-S-h") 'windmove-left)
-(global-set-key (kbd "C-S-l") 'windmove-right)
-(global-set-key (kbd "C-S-k") 'windmove-up)
-(global-set-key (kbd "C-S-j") 'windmove-down)
+(req-package switch-window
+  :config (global-set-key (kbd "C-x o") 'switch-window))
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
