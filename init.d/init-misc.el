@@ -1,5 +1,5 @@
 (add-hook 'after-make-frame-functions
-	  (lambda (frame)
+          (lambda (frame)
 	    (when (not (display-graphic-p))
 	      (if (fboundp 'menu-bar-mode)
 		  (menu-bar-mode -1)))))
@@ -19,8 +19,8 @@
 (global-auto-revert-mode 1)
 
 (setq-default indent-tabs-mode t)
-(add-hook 'emacs-lisp-mode-hook (lambda () indent-tabs-mode nil))
-(add-hook 'lisp-mode-hook (lambda () indent-tabs-mode nil))
+(add-hook 'emacs-lisp-mode-hook (lambda () (setq indent-tabs-mode nil)))
+(add-hook 'lisp-mode-hook (lambda () (setq indent-tabs-mode nil)))
 
 (req-package switch-window
   :config (global-set-key (kbd "C-x o") 'switch-window))
