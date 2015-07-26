@@ -22,6 +22,15 @@
 (add-hook 'emacs-lisp-mode-hook (lambda () (setq indent-tabs-mode nil)))
 (add-hook 'lisp-mode-hook (lambda () (setq indent-tabs-mode nil)))
 
+(defun close-and-kill-this-pane ()
+  "If there are multiple windows, then close this pane and kill the buffer in it also."
+  (interactive)
+  (kill-this-buffer)
+  (if (not (one-window-p))
+      (delete-window)))
+
+(global-set-key (kbd "C-x )") 'close-and-kill-this-pane)
+
 (req-package switch-window
   :config (global-set-key (kbd "C-x o") 'switch-window))
 
