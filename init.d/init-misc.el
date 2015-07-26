@@ -30,6 +30,7 @@
       (delete-window)))
 
 (global-set-key (kbd "C-x )") 'close-and-kill-this-pane)
+(global-set-key (kbd "C-x K") 'close-and-kill-this-pane)
 
 (req-package switch-window
   :config (global-set-key (kbd "C-x o") 'switch-window))
