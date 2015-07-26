@@ -37,18 +37,34 @@
 			        (ibuffer-do-sort-by-alphabetic)))))
 
 (req-package projectile
-  :config (projectile-global-mode))
+  :config (progn
+            (projectile-global-mode)
+            (diminish 'projectile-mode)))
+
 (req-package magit
-  :config (setq magit-last-seen-setup-instructions "1.4.0"))
+  :config (progn
+            (setq magit-last-seen-setup-instructions "1.4.0")
+            (magit-auto-revert-mode -1)))
 
 (req-package helm
   :config (progn
 	    (require 'helm-config)
 	    (helm-mode 1)
-	    (helm-autoresize-mode 1)))
+	    (helm-autoresize-mode 1)
+            (diminish 'helm-mode)))
 
 (req-package neotree
   :config (progn
 	    (global-set-key [f8] 'neotree-toggle)))
+
+(req-package avy
+  :config (progn
+            (global-set-key (kbd "C-:") 'avy-goto-char)
+            (global-set-key (kbd "C-'") 'avy-goto-char-2)
+            (global-set-key (kbd "M-g f") 'avy-goto-line)
+            (global-set-key (kbd "M-g w") 'avy-goto-word-1)
+            (global-set-key (kbd "M-g e") 'avy-goto-word-0)
+            (avy-setup-default)))
+                            
 
 (provide 'init-misc)
