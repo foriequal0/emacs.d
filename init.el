@@ -2,7 +2,7 @@
 (require 'package)
 
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backup/")))
-(setq auto-save-file-name-transform '(".*" "~/.emacs.d/auto-save/" t))
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save/" t)))
 (setq backup-by-copying t    ; Don't delink hardlinks
       version-control t      ; Use version numbers on backups
       delete-old-versions t  ; Automatically delete excess backups
@@ -25,7 +25,7 @@
       '(("marmalade" . "http://marmalade-repo.org/packages/")
 	("melpa" . "http://melpa.org/packages/")
 	("gnu" . "http://elpa.gnu.org/packages/")
-	("elpa" . "http://tromey.com/elpa/")
+	("elpa" . "http://elpa.gnu.org/")
 	("org" . "http://orgmode.org/elpa/")
 	("sunrise" . "http://joseito.republika.pl/sunrise-commander/")))
 
