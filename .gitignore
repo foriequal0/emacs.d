@@ -11,3 +11,6 @@
 */.\#*
 
 /framegeometry
+/lisp/loaddef.el
+/projectile-bookmarks.eld
+/custom.el

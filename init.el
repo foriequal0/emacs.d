@@ -1,7 +1,8 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp/"))
-(load "package-management.el")
-(load "prerequisites.el")
-(load "environments.el")
+(load "package-management")
+(load "prerequisites")
+(load "environments")
+(load "autoloads")
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
