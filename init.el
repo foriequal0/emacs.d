@@ -5,6 +5,7 @@
 
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
+(load "restore-window-size")
 
 ;; init.d
 
