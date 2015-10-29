@@ -1,3 +1,5 @@
+(require 'req-package)
+
 (add-hook 'after-make-frame-functions
           (lambda (frame)
 	    (when (not (display-graphic-p))

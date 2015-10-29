@@ -1,3 +1,5 @@
+(require 'req-package)
+
 (req-package elm-mode
   :mode ("\\.elm\\'" . elm-mode)
   :require company

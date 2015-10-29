@@ -1,3 +1,5 @@
+(require 'req-package)
+
 ; it needs CMake, libclang
 (req-package irony
   :require company

@@ -1,3 +1,5 @@
+(require 'req-package)
+
 (req-package company
   :init (add-hook 'after-init-hook #'global-company-mode)
   :config (progn

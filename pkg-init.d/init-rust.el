@@ -1,3 +1,5 @@
+(require 'req-package)
+
 (req-package flycheck-rust
   :require flycheck
   :init (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
