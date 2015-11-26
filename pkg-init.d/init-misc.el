@@ -48,20 +48,20 @@
 			        (ibuffer-do-sort-by-alphabetic)))))
 
 (req-package projectile
+  :diminish projectile-mode
   :config (progn
-            (projectile-global-mode)
-            (diminish 'projectile-mode)))
+            (projectile-global-mode)))
 
 (req-package magit
   :config (progn
             (setq magit-last-seen-setup-instructions "1.4.0")))
 
 (req-package helm
+  :diminish helm-mode
   :config (progn
 	    (require 'helm-config)
 	    (helm-mode 1)
-	    (helm-autoresize-mode 1)
-            (diminish 'helm-mode)))
+	    (helm-autoresize-mode 1)))
 
 (req-package neotree
   :config (progn
