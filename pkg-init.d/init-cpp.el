@@ -28,4 +28,7 @@
   :require flycheck
   :init (progn (add-hook 'flycheck-mode-hook #'flycheck-irony-setup)))
 
+(setq c-default-style "linux"
+      c-basic-offset 4)
+
 (provide 'init-cpp)
