@@ -1,6 +1,5 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp/"))
-(load "package-management")
-(load "prerequisites")
+(load "package-prepare")
 (load "environments")
 (load "autoloads")
 
