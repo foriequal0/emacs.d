@@ -3,6 +3,7 @@
 /backup/
 /auto-save/
 /auto-save-list/
+/image-dired/
 
 /irony
 
@@ -17,3 +18,4 @@
 /lisp/loaddef.el
 /projectile-bookmarks.eld
 /custom.el
+/octave-workspace

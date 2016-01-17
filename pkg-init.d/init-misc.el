@@ -1,4 +1,4 @@
-(require 'req-package)
+(require 'use-package)
 
 (add-hook 'after-make-frame-functions
           (lambda (frame)
@@ -14,9 +14,9 @@
 ;; display time on console.
 (setq display-time-string-forms
       '((propertize (concat " " 24-hours ":" minutes " "))))
-(display-time-mode 1)
+;(display-time-mode 1)
 
-(display-battery-mode 1)
+;(display-battery-mode 1)
 
 (global-auto-revert-mode 1)
 
@@ -33,49 +33,71 @@
 
 (global-set-key (kbd "C-x )") 'close-and-kill-this-pane)
 
-(req-package switch-window
+(use-package switch-window
   :config (global-set-key (kbd "C-x o") 'switch-window))
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(req-package iresize)
+;(use-package iresize)
 
-(req-package ibuffer-projectile
+(use-package fill-column-indicator
+  :commands fci-mode
+  :init
+  (define-globalized-minor-mode global-fci-mode fci-mode
+    (lambda ()
+      (if (and
+           (not (string-match "^\*.*\*$" (buffer-name)))
+           (not (eq major-mode 'dired-mode))
+           (not (eq major-mode 'helm-mode))
+           (not (eq major-mode 'neotree-mode)))
+          (fci-mode 1))))
+  (global-fci-mode 1)
+  :config
+  (setq fci-rule-use-dashes t))
+
+(use-package ibuffer-projectile
   :config (add-hook 'ibuffer-hook
 		    (lambda ()
 		      (ibuffer-projectile-set-filter-groups)
 		      (unless (eq ibuffer-sorting-mode 'alphabetic)
-			        (ibuffer-do-sort-by-alphabetic)))))
+                        (ibuffer-do-sort-by-alphabetic)))))
 
-(req-package projectile
+(use-package projectile
   :diminish projectile-mode
-  :config (progn
-            (projectile-global-mode)))
+  :config
+  (projectile-global-mode))
 
-(req-package magit
-  :config (progn
-            (setq magit-last-seen-setup-instructions "1.4.0")))
+(use-package magit
+  :config
+  (setq magit-last-seen-setup-instructions "1.4.0"))
 
-(req-package helm
+(use-package helm
   :diminish helm-mode
-  :config (progn
-	    (require 'helm-config)
-	    (helm-mode 1)
-	    (helm-autoresize-mode 1)))
+  :config
+  (require 'helm-config)
+  (helm-mode 1)
+  (helm-autoresize-mode 1)
+  (setq helm-mode-fuzzy-match t)
+  (setq helm-completion-in-region-fuzzy-match t))
 
-(req-package neotree
-  :config (progn
-	    (global-set-key [f8] 'neotree-toggle)))
+(use-package neotree
+  :config
+  (global-set-key (kbd "<f8>") 'neotree-toggle)
+  (setq neo-smart-open t))
 
-(req-package avy
-  :init (progn
-            (global-set-key (kbd "C-:") 'avy-goto-char)
-            (global-set-key (kbd "C-'") 'avy-goto-char-2)
-            (global-set-key (kbd "M-g f") 'avy-goto-line)
-            (global-set-key (kbd "M-g w") 'avy-goto-word-1)
-            (global-set-key (kbd "M-g e") 'avy-goto-word-0)
-            (require 'avy)
-            (avy-setup-default)))
-                            
+(use-package dired+
+  :config
+  (define-key dired-mode-map [mouse-2] #'diredp-mouse-find-file-reuse-dir-buffer)
+  (define-key dired-mode-map [S-mouse-2] #'diredp-mouse-find-file-other-frame)
+  (diredp-toggle-find-file-reuse-dir 1))
+
+(use-package avy
+  :config
+  (global-set-key (kbd "C-:") 'avy-goto-char)
+  (global-set-key (kbd "C-'") 'avy-goto-char-2)
+  (global-set-key (kbd "M-g f") 'avy-goto-line)
+  (global-set-key (kbd "M-g w") 'avy-goto-word-1)
+  (global-set-key (kbd "M-g e") 'avy-goto-word-0)
+  (avy-setup-default))
 
 (provide 'init-misc)

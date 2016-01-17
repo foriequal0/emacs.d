@@ -13,17 +13,25 @@
 (if (null package-archive-contents)
     (package-refresh-contents))
 
-(defun require-package (p)
-  (if (null (require p nil t))
-      (progn
-        (if (assoc p package-archive-contents)
-            (package-install p))
-        (require p))))
+(defvar must-have-packges
+  '('use-package))
 
-(require-package 'req-package)
-(require-package 'load-dir)
-(require-package 'f)
-(require-package 's)
-(require-package 'dash)
+(dolist (p must-have-packges)
+  (unless (package-installed-p p)
+    (if (assoc p package-archive-contents)
+        (package-install p))))
+
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+;; super important packages.
+(use-package load-dir)
+(use-package f)
+(use-package s)
+(use-package dash)
+(use-package auto-compile
+  :config
+  (auto-compile-on-load-mode)
+  (auto-compile-on-save-mode))
 
 (provide 'package-prepare)

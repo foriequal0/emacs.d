@@ -1,6 +1,7 @@
-(require 'req-package)
+(require 'use-package)
 
-(req-package php-mode
+(use-package php-mode
   :mode "\\.php\\'"
   :mode "\\.inc\\'"
-  :init (eval-after-load 'php-mode '(require 'php-ext)))
+  :config
+  (require 'php-ext))

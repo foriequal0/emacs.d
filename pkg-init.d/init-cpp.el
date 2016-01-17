@@ -1,32 +1,39 @@
-(require 'req-package)
+(require 'use-package)
 
 ; it needs CMake, libclang
-(req-package irony
-  :require company
-  :init (progn (add-hook 'c++-mode-hook 'irony-mode)
-	       (add-hook 'c-mode-hook 'irony-mode)
-	       (add-hook 'objc-mode-hook 'irony-mode)
-	       
-	       (add-hook 'irony-mode-hook 'my-irony-mode-hook)
-	       (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)))
+(use-package irony
+  :commands irony-mode
+  :init
+  (add-hook 'c++-mode-hook 'irony-mode)
+  (add-hook 'c-mode-hook 'irony-mode)
+  (add-hook 'objc-mode-hook 'irony-mode)
+  :config
+  (require 'company)
+  (require 'company-irony)
+  (require 'flycheck-irony)
+  (my-irony-mode-hook)
+  (irony-cdb-autosetup-compile-options))
 
 (defun my-irony-mode-hook ()
-  "Replace the `completion-at-point' and `complete-symbol' bindings in irony-mode's buffer by irony-mode's functino"
+  "Replace the `completion-at-point' and `complete-symbol' bindings in
+ irony-mode's buffer by irony-mode's function"
   (define-key irony-mode-map [remap completion-at-point]
     'irony-completion-at-point-async)
   (define-key irony-mode-map [remap complete-symbol]
     'irony-completion-at-point-async))
 
-(req-package company-irony
-  :require company
-  :init (progn (eval-after-load 'company
-		 '(add-to-list 'company-backends 'company-irony))
-	       (add-hook 'irony-mode-hook 
-			 'company-irony-setup-begin-commands)))
+(use-package company-irony
+  :defer t
+  :config
+  (require 'irony)
+  (add-to-list 'company-backends 'company-irony)
+  (company-irony-setup-begin-commands))
 
-(req-package flycheck-irony
-  :require flycheck
-  :init (progn (add-hook 'flycheck-mode-hook #'flycheck-irony-setup)))
+(use-package flycheck-irony
+  :defer t
+  :init
+  (require 'flycheck)
+  (add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
 
 (setq c-default-style "linux"
       c-basic-offset 4)

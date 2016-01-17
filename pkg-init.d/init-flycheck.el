@@ -1,9 +1,10 @@
-(require 'req-package)
+(require 'use-package)
 
-(req-package flycheck
+(use-package flycheck
   :diminish flycheck-mode
-  :init (add-hook 'after-init-hook #'global-flycheck-mode)
-  :config (progn
-            (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))))
+  :init
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  :config
+  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
 
 (provide 'init-flycheck)

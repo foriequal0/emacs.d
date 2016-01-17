@@ -1,39 +1,47 @@
-(require 'req-package)
+(require 'use-package)
+(require 'paths)
 
-(let ((my-cabal-path (expand-file-name "~/.cabal/bin")))
-  (setenv "PATH" (concat my-cabal-path ":" (getenv "PATH")))
-  (add-to-list 'exec-path my-cabal-path))
+(paths-add
+ "~/.cabal/bin"
+ "~/.local/bin")
 
-(req-package haskell-mode
+(use-package haskell-mode
   :mode "\\.hs$"
-  :init (progn (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
-	       ;; require 'cabal install hasktags'
-	       (custom-set-variables '(haskell-tags-on-save t)))
-  :config (progn (define-key haskell-mode-map [f8] 'haskell-navigate-imports)))
+  :config
+  ;; require 'cabal install hasktags'
+  (custom-set-variables '(haskell-tags-on-save t))
+  (setq tab-width 4
+        haskell-indentation-layout-offset 4
+        haskell-indentation-left-offset 4
+        haskell-indentation-ifte-offset 4)
+  (define-key haskell-mode-map (kbd "<f9>")
+    (lambda ()
+      (interactive)
+      (push-mark)
+      (haskell-navigate-imports)))
+  
+  (require 'flycheck)
+  (require 'company-ghc)
+  (ghc-init)
+  (flycheck-haskell-setup)
+  (add-hook 'haskell-mode-hook #'haskell-doc-mode t) ; it raises a keymapp error when called directly.
+  )
 
-;; require 'cabal install structured-haskell-mode'
-(req-package shm
-  :init (progn (add-hook 'haskell-mode-hook 'structured-haskell-mode))
-  :config (progn (set-face-background 'shm-current-face "#eee8d5")
-		 (set-face-background 'shm-quarantine-face "lemonchiffon")))
-
-(req-package flycheck-haskell
-  :require flycheck
-  :init (add-hook 'flycheck-mode-hook #'flycheck-haskell-setup))
+(use-package flycheck-haskell
+  :commands flycheck-haskell-setup)
 
 ;; install cabal-install < 1.22 when ghc < 7.10
 ;; tested with cabal-install == 1.20, ghc 7.8.2
 ;; require 'cabal install ghc-mod'
-(req-package ghc
-  :require haskell-mode
-  :init (progn (autoload 'ghc-init "ghc" nil t)
-	       (autoload 'ghc-debug "ghc" nil t)
-	       (add-hook 'haskell-mode-hook (lambda () (ghc-init)))))
+(use-package ghc
+  :commands ghc-init ghc-debug)
 
-(req-package company-ghc
-  :require (company ghc)
-  :init (progn (add-hook 'haskell-mode-hook 'company-mode)
-	       (add-to-list 'company-backends 'company-ghc)
-	       (custom-set-variables '(company-ghc-show-info t))))
+(use-package company-ghc
+  :defer t
+  :config
+  (require 'company)
+  (require 'ghc)
+  (add-to-list 'company-backends 'company-ghc)
+  (custom-set-variables '(company-ghc-show-info t)))
 
 (provide 'init-haskell)

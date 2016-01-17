@@ -1,6 +1,6 @@
-(require 'req-package)
+(require 'use-package)
 
-(req-package dockerfile-mode
+(use-package dockerfile-mode
   :mode "Dockerfile\\'")
 
 (provide 'init-docker)

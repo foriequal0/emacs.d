@@ -1,10 +1,10 @@
-(require 'req-package)
+(require 'use-package)
 
-(req-package elm-mode
+(use-package elm-mode
   :mode ("\\.elm\\'" . elm-mode)
-  :require company
-  :config (progn
-            (elm-oracle-setup-completion)
-            (setq indent-tabs-mode nil)))
+  :config
+  (require 'company)
+  (elm-oracle-setup-completion)
+  (setq indent-tabs-mode nil))
 
 (provide 'init-elm)
