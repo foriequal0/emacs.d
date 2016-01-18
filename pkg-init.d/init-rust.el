@@ -8,7 +8,9 @@
   (flycheck-rust-setup))
 
 (use-package flycheck-rust
-  :commands flycheck-rust-setup)
+  :commands flycheck-rust-setup
+  :config
+  (require 'flycheck))
 
 (use-package racer
   :commands racer-mode
