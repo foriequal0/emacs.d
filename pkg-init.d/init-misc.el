@@ -78,13 +78,14 @@
   :bind ("C-x C-f" . helm-find-files)
   :config
   (require 'helm-config)
+  (helm-mode t)
   (helm-autoresize-mode 1)
   (setq helm-mode-fuzzy-match t)
   (setq helm-completion-in-region-fuzzy-match t))
 
 (use-package neotree
   :config
-  (global-set-key (kbd "<f8>") 'neotree-toggle)
+  (global-set-key (kbd "<f8>") #'neotree-toggle)
   (setq neo-theme 'nerd)
   (setq neo-smart-open t))
 
