@@ -1,3 +1,4 @@
+(require 'load-dir)
 
 (defvar on-reload nil)
 

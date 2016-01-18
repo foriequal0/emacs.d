@@ -1,22 +1,17 @@
 (require 'package)
-
 (setq package-archives
       '(("marmalade" . "http://marmalade-repo.org/packages/")
         ("melpa" . "http://melpa.org/packages/")
         ("gnu" . "http://elpa.gnu.org/packages/")
-        ("elpa" . "http://elpa.gnu.org/")
         ("org" . "http://orgmode.org/elpa/")
         ("sunrise" . "http://joseito.republika.pl/sunrise-commander/")))
 
 (package-initialize)
 
-(if (null package-archive-contents)
+(unless package-archive-contents
     (package-refresh-contents))
 
-(defvar must-have-packges
-  '('use-package))
-
-(dolist (p must-have-packges)
+(dolist (p '(use-package))
   (unless (package-installed-p p)
     (if (assoc p package-archive-contents)
         (package-install p))))

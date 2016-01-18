@@ -10,6 +10,7 @@
 ;(load "restore-window-size")
 
 ;; init.d
+(require 'load-dir)
 (setq load-dirs "~/.emacs.d/pkg-init.d/")
 (if (boundp 'on-reload)
     (load-dir-reload))
