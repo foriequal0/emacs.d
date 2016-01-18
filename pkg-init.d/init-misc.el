@@ -83,6 +83,7 @@
 (use-package neotree
   :config
   (global-set-key (kbd "<f8>") 'neotree-toggle)
+  (setq neo-theme 'nerd)
   (setq neo-smart-open t))
 
 (use-package dired+
