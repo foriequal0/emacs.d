@@ -73,9 +73,11 @@
 
 (use-package helm
   :diminish helm-mode
+  :demand
+  :bind ("M-x" . helm-M-x)
+  :bind ("C-x C-f" . helm-find-files)
   :config
   (require 'helm-config)
-  (helm-mode 1)
   (helm-autoresize-mode 1)
   (setq helm-mode-fuzzy-match t)
   (setq helm-completion-in-region-fuzzy-match t))
