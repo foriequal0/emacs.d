@@ -2,7 +2,7 @@
 
 (setq backup-directory-alist '((".*" . "~/.emacs.d/backup/")))
 
-(if (f-directory? "~/.emacs.d/auto-save/")
+(unless (f-directory? "~/.emacs.d/auto-save/")
     (f-mkdir "~/.emacs.d/auto-save"))
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save/" t)))
 
