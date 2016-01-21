@@ -11,6 +11,6 @@
 
 ;; init.d
 (require 'load-dir)
-(setq load-dirs "~/.emacs.d/pkg-init.d/")
+(setq load-dirs "~/.emacs.d/init.d/")
 (if (boundp 'on-reload)
     (load-dir-reload))
