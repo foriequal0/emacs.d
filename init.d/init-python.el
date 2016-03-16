@@ -8,6 +8,7 @@
   :mode ("\\.py\\'" . elpy-mode)
   :config
   (elpy-enable)
+  (pyvenv-activate "~/.pyvenv")
   (require 'python-mode)
   (require 'company-jedi))
 
