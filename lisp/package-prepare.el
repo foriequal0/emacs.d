@@ -29,5 +29,6 @@
   :config
   (auto-compile-on-load-mode)
   (auto-compile-on-save-mode))
+(use-package better-defaults)
 
 (provide 'package-prepare)
