@@ -2,7 +2,6 @@
 (require 'paths)
 
 (paths-add
- "~/.cabal/bin"
  "~/.local/bin")
 
 (use-package haskell-mode
@@ -30,9 +29,7 @@
 (use-package flycheck-haskell
   :commands flycheck-haskell-setup)
 
-;; install cabal-install < 1.22 when ghc < 7.10
-;; tested with cabal-install == 1.20, ghc 7.8.2
-;; require 'cabal install ghc-mod'
+;; require 'stack install ghc-mod'
 (use-package ghc
   :commands ghc-init ghc-debug)
 
