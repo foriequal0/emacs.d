@@ -38,7 +38,7 @@
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-;(use-package iresize)
+(use-package iresize)
 
 (use-package fill-column-indicator
   :commands fci-mode
