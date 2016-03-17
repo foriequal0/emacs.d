@@ -1,19 +1,18 @@
 (require 'use-package)
 
-(use-package python-mode
-  :defer t
-  :config (python-mode))
+(use-package python
+  :mode ("\\.py\\'" . python-mode)
+  :interpreter ("python" . python-mode))
 
 (use-package elpy
-  :mode ("\\.py\\'" . elpy-mode)
+  :defer t
+  :after python
   :config
-  (elpy-enable)
   (pyvenv-activate "~/.pyvenv")
-  (require 'python-mode)
-  (require 'company-jedi))
+  (elpy-enable))
 
 (use-package company-jedi
-  :defer t
+  :after python-mode
   :config
   (add-to-list 'company-backends 'company-jedi))
 

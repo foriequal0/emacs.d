@@ -104,4 +104,8 @@
   (global-set-key (kbd "M-g e") 'avy-goto-word-0)
   (avy-setup-default))
 
+(use-package markdown-mode
+  :mode "\\.md\\'"
+  :mode "\\.markdown\\'")
+
 (provide 'init-misc)
