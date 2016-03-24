@@ -53,7 +53,13 @@
           (fci-mode 1))))
   (global-fci-mode 1)
   :config
-  (setq fci-rule-use-dashes t))
+  (setq fci-rule-column 80)
+  (defun auto-fci-mode (&optional unused)
+    (if (> (window-width) fci-rule-column)
+        (fci-mode 1)
+      (fci-mode 0)))
+  (add-hook 'after-change-major-mode-hook 'auto-fci-mode)
+  (add-hook 'window-configuration-change-hook 'auto-fci-mode))
 
 (use-package ibuffer-projectile
   :config (add-hook 'ibuffer-hook
