@@ -2,7 +2,9 @@
 
 (use-package python
   :mode ("\\.py\\'" . python-mode)
-  :interpreter ("python" . python-mode))
+  :interpreter ("python" . python-mode)
+  :config
+  (add-to-list 'write-file-functions 'delete-trailing-whitespace))
 
 (use-package elpy
   :defer t
@@ -12,7 +14,7 @@
   (elpy-enable))
 
 (use-package company-jedi
-  :after python-mode
+  :after python
   :config
   (add-to-list 'company-backends 'company-jedi))
 
