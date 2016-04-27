@@ -10,6 +10,7 @@
   :config
   ;; require 'cabal install hasktags'
   (custom-set-variables '(haskell-tags-on-save t))
+  (add-to-list 'write-file-functions 'delete-trailing-whitespace)
   (setq tab-width 4
         haskell-indentation-layout-offset 4
         haskell-indentation-left-offset 4
