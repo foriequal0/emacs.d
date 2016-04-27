@@ -32,6 +32,12 @@
       (delete-window)))
 
 (global-set-key (kbd "C-x )") 'close-and-kill-this-pane)
+(global-set-key (kbd "C-x C-c")
+                (lambda ()
+                  (interactive)
+                  (if (delete-frame-enabled-p)
+                      (delete-frame)
+                    (save-buffers-kill-emacs))))
 
 (use-package switch-window
   :config (global-set-key (kbd "C-x o") 'switch-window))

@@ -6,6 +6,7 @@
 
 (use-package haskell-mode
   :mode "\\.hs$"
+  :bind ("M-." . haskell-mode-jump-to-def-or-tag)
   :config
   ;; require 'cabal install hasktags'
   (custom-set-variables '(haskell-tags-on-save t))

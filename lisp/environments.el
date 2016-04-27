@@ -13,4 +13,6 @@
       kept-old-versions 2    ; and how many of the old
       )
 
+(global-set-key (kbd "C-z") nil)
+
 (provide 'environments)
