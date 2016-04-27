@@ -120,4 +120,11 @@
   :mode "\\.md\\'"
   :mode "\\.markdown\\'")
 
+(use-package yaml-mode
+  :mode "\\.yaml\\'")
+
+(use-package undo-tree
+  :diminish undo-tree-mode
+  :init (global-undo-tree-mode))
+
 (provide 'init-misc)
