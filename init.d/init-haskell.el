@@ -6,7 +6,7 @@
 
 (use-package haskell-mode
   :mode "\\.hs$"
-  :bind ("M-." . haskell-mode-jump-to-def-or-tag)
+  :bind ("C-c C-z" . haskell-interactive-bring)
   :config
   ;; require 'cabal install hasktags'
   (custom-set-variables '(haskell-tags-on-save t))
@@ -20,13 +20,17 @@
       (interactive)
       (push-mark)
       (haskell-navigate-imports)))
-  
+
   (require 'flycheck)
   (require 'company-ghc)
   (ghc-init)
   (flycheck-haskell-setup)
   (add-hook 'haskell-mode-hook #'haskell-doc-mode t) ; it raises a keymapp error when called directly.
-  )
+  (add-hook 'haskell-mode-hook
+            (lambda () (define-key
+                         haskell-mode-map
+                         (kbd "M-.")
+                         'haskell-mode-jump-to-def-or-tag))))
 
 (use-package flycheck-haskell
   :commands flycheck-haskell-setup)

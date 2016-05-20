@@ -12,7 +12,7 @@
   (require 'company-irony)
   (require 'flycheck-irony)
   (my-irony-mode-hook)
-  (irony-cdb-autosetup-compile-options))
+  (add-hook 'irony-mode-hook #'irony-cdb-autosetup-compile-options))
 
 (defun my-irony-mode-hook ()
   "Replace the `completion-at-point' and `complete-symbol' bindings in
