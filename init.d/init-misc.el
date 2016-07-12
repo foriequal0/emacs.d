@@ -44,6 +44,9 @@
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+(setq default-input-method "korean-hangul")
+(global-set-key (kbd "<Hangul>") 'toggle-input-method)
+
 (use-package iresize)
 
 (use-package fill-column-indicator
