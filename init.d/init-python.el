@@ -7,7 +7,6 @@
   (add-to-list 'write-file-functions 'delete-trailing-whitespace))
 
 (use-package elpy
-  :defer t
   :after python
   :config
   (pyvenv-activate "~/.pyvenv")

@@ -2,15 +2,13 @@
 
 (use-package company
   :diminish company-mode
-  :commands comapny-mode
   :bind ("TAB" . company-indent-or-complete-common)
   :init
   (global-company-mode)
-  (setq company-tooltip-align-annotations t)
-  :config
-  (company-quickhelp-mode 1))
-    
+  (setq company-tooltip-align-annotations t))
+
 (use-package company-quickhelp
-  :commands company-quickhelp-mode)
+  :after company
+  :config (company-quickhelp-mode 1))
 
 (provide 'init-company-mode)

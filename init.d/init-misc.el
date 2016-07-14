@@ -39,18 +39,21 @@
                       (delete-frame)
                     (save-buffers-kill-emacs))))
 
-(use-package switch-window
-  :config (global-set-key (kbd "C-x o") 'switch-window))
-
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (setq default-input-method "korean-hangul")
 (global-set-key (kbd "<Hangul>") 'toggle-input-method)
 
-(use-package iresize)
+(use-package macrostep
+  :bind ("C-c e" . macrostep-expand))
+
+(use-package switch-window
+  :bind ("C-x o" . switch-window))
+
+(use-package iresize
+  :bind ("C-c i" . iresize-mode))
 
 (use-package fill-column-indicator
-  :commands fci-mode
   :init
   (define-globalized-minor-mode global-fci-mode fci-mode
     (lambda ()
@@ -83,8 +86,7 @@
   (projectile-global-mode))
 
 (use-package magit
-  :config
-  (setq magit-last-seen-setup-instructions "1.4.0"))
+  :defer t)
 
 (use-package helm
   :diminish helm-mode
@@ -93,14 +95,16 @@
   :bind ("C-x C-f" . helm-find-files)
   :config
   (require 'helm-config)
+  ;; to silence ad-redefinition-action 
+  (setq ad-redefinition-action 'accept)
   (helm-mode t)
   (helm-autoresize-mode 1)
   (setq helm-mode-fuzzy-match t)
   (setq helm-completion-in-region-fuzzy-match t))
 
 (use-package neotree
+  :bind ("<f8>" . neotree-toggle)
   :config
-  (global-set-key (kbd "<f8>") #'neotree-toggle)
   (setq neo-theme 'nerd)
   (setq neo-smart-open t))
 
@@ -111,12 +115,12 @@
   (diredp-toggle-find-file-reuse-dir 1))
 
 (use-package avy
+  :bind (("C-:" . avy-goto-char)
+         ("C-'" . avy-goto-char-2)
+         ("M-g f" . avy-goto-line)
+         ("M-g w" . avy-goto-word-1)
+         ("M-g e" . avy-goto-word-0))
   :config
-  (global-set-key (kbd "C-:") 'avy-goto-char)
-  (global-set-key (kbd "C-'") 'avy-goto-char-2)
-  (global-set-key (kbd "M-g f") 'avy-goto-line)
-  (global-set-key (kbd "M-g w") 'avy-goto-word-1)
-  (global-set-key (kbd "M-g e") 'avy-goto-word-0)
   (avy-setup-default))
 
 (use-package markdown-mode
