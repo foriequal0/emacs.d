@@ -1,10 +1,10 @@
 (require 'f)
 
-(setq backup-directory-alist '((".*" . "~/.emacs.d/backup/")))
+(setq backup-directory-alist '((".*" . "~/.emacs.d/backups/")))
 
-(unless (f-directory? "~/.emacs.d/auto-save/")
-    (f-mkdir "~/.emacs.d/auto-save"))
-(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save/" t)))
+(unless (f-directory? "~/.emacs.d/auto-save-list/")
+    (f-mkdir "~/.emacs.d/auto-save-list"))
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
 
 (setq backup-by-copying t    ; Don't delink hardlinks
       version-control t      ; Use version numbers on backups

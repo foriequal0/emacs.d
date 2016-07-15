@@ -1,14 +1,10 @@
 /elpa/
 /eshell/
-/backup/
 /backups/
-/auto-save/
 /auto-save-list/
 /image-dired/
-/places/
+/irony/
 /places
-
-/irony
 
 /ac-comphist.dat
 /ede-projects.el
@@ -18,11 +14,12 @@
 */.\#*
 
 /framegeometry
-/lisp/loaddef.el
-/projectile-bookmarks.eld
-/custom.el
-/octave-workspace
 /abbrev_defs
+/projectile-bookmarks.eld
+/octave-workspace
+/lisp/loaddef.el
+/custom.el
+/config-db.elc
 
 # Created by https://www.gitignore.io/api/vim
 
