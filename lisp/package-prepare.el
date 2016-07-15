@@ -30,5 +30,27 @@
   (auto-compile-on-load-mode)
   (auto-compile-on-save-mode))
 (use-package better-defaults)
+(use-package db
+  :config
+  (defvar config-db
+    (db-make '(db-hash :filename "~/.emacs.d/config-db"))))
+
+(let ((last-check (db-get "package-last-update" config-db))
+      (current (current-time)))
+  (if last-check
+      (let* ((since-last-check (time-subtract current last-check))
+             (days-since-last-check (time-to-number-of-days since-last-check)))
+        (when (>= days-since-last-check 7)
+          (progn
+            (message (format "package-archive-contents too old (%d days)" days-since-last-check))
+            (package-refresh-contents)
+            (db-put "package-last-update" current config-db))))
+    (db-put "package-last-update" current config-db)))
+              
+            
+
+
+      
+
 
 (provide 'package-prepare)
