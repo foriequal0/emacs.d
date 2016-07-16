@@ -21,7 +21,6 @@
 (setq use-package-always-ensure t)
 
 ;; super important packages.
-(use-package load-dir)
 (use-package f)
 (use-package s)
 (use-package dash)
@@ -46,11 +45,17 @@
             (package-refresh-contents)
             (db-put "package-last-update" current config-db))))
     (db-put "package-last-update" current config-db)))
-              
-            
 
-
-      
+(require 'f)
+(require 'dash)
+(defun load-directory (directory)
+  (let* ((files (f-files directory))
+         (modules (-distinct (-map 'f-no-ext files)))
+         (nonhiddens (-filter (lambda (path)
+                                (not (string-prefix-p "." (f-base path))))
+                              modules)))
+    (dolist (module nonhiddens)
+      (load module))))
 
 
 (provide 'package-prepare)

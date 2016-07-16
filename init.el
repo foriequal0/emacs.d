@@ -8,5 +8,4 @@
 (load "~/.emacs.d/custom.el" 'noerror)
 ;(load "restore-window-size")
 
-(setq load-dir-loaded nil)
-(load-dir-one "~/.emacs.d/init.d/")
+(load-directory "~/.emacs.d/init.d")
