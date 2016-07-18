@@ -10,11 +10,11 @@
 
 (use-package haskell-mode
   :mode "\\.hs\\'"
-  :bind (:map haskell-mode-map
+  :config
+  (bind-keys :map haskell-mode-map
               ("C-c C-z" . haskell-interactive-bring)
               ("M-." . haskell-mode-jump-to-def-or-tag)
               ("<f9>" . haskell--mark-navigate-imports))
-  :config
   ;; require 'cabal install hasktags'
   ;; (custom-set-variables '(haskell-tags-on-save t))
   (add-to-list 'write-file-functions 'delete-trailing-whitespace)
