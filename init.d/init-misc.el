@@ -44,11 +44,21 @@
 (setq default-input-method "korean-hangul")
 (global-set-key (kbd "<Hangul>") 'toggle-input-method)
 
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil))
+      mouse-wheel-progressive-speed t
+      scroll-step 3)
+
 (use-package macrostep
   :bind ("C-c e" . macrostep-expand))
 
 (use-package switch-window
   :bind ("C-x o" . switch-window))
+
+(use-package buffer-move
+  :bind (("<C-S-up>" . buf-move-up)
+         ("<C-S-down>" . buf-move-down)
+         ("<C-S-left>" . buf-move-left)
+         ("<C-S-right>" . buf-move-right)))
 
 (use-package iresize
   :bind ("C-c i" . iresize-mode))
@@ -88,6 +98,11 @@
 (use-package magit
   :defer t)
 
+(use-package diff-hl
+  :init (global-diff-hl-mode)
+  :config
+  (diff-hl-flydiff-mode))
+
 (use-package helm
   :diminish helm-mode
   :demand
@@ -95,7 +110,7 @@
   :bind ("C-x C-f" . helm-find-files)
   :config
   (require 'helm-config)
-  ;; to silence ad-redefinition-action 
+  ;; to silence ad-redefinition-action
   (setq ad-redefinition-action 'accept)
   (helm-mode t)
   (helm-autoresize-mode 1)
