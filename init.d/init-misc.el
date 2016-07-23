@@ -1,5 +1,7 @@
 (require 'use-package)
 
+(use-package noflet)
+
 (add-hook 'after-make-frame-functions
           (lambda (frame)
 	    (when (not (display-graphic-p))
@@ -45,8 +47,24 @@
 (global-set-key (kbd "<Hangul>") 'toggle-input-method)
 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil))
-      mouse-wheel-progressive-speed t
+      mouse-wheel-progressive-speed 5
       scroll-step 3)
+
+(defun mwheel-scroll-advice (orig-fun event)
+  (if mouse-wheel-progressive-speed
+      (if (integerp mouse-wheel-progressive-speed)
+          (let* ((max-amt mouse-wheel-progressive-speed)
+                 (saturate (lambda (&optional value)
+                             (if (and value (integer-or-marker-p value))
+                                 (if (<= value max-amt) value max-amt)
+                               value))))
+            (noflet ((scroll-up (&optional amt) (funcall this-fn (funcall saturate amt)))
+                     (scroll-down (&optional amt) (funcall this-fn (funcall saturate amt))))
+              (funcall orig-fun event)))
+        (funcall orig-fun event))
+    (funcall orig-fun event)))
+
+(advice-add #'mwheel-scroll :around #'mwheel-scroll-advice)
 
 (use-package macrostep
   :bind ("C-c e" . macrostep-expand))
