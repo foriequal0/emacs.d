@@ -119,7 +119,8 @@
 (use-package diff-hl
   :init (global-diff-hl-mode)
   :config
-  (diff-hl-flydiff-mode))
+  (diff-hl-flydiff-mode)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
 (use-package helm
   :diminish helm-mode
