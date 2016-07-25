@@ -124,9 +124,9 @@
 
 (use-package helm
   :diminish helm-mode
-  :demand
-  :bind ("M-x" . helm-M-x)
-  :bind ("C-x C-f" . helm-find-files)
+  :defer 1
+  :bind (("M-x" . helm-M-x)
+         ("C-x C-f" . helm-find-files))
   :config
   (require 'helm-config)
   ;; to silence ad-redefinition-action
@@ -139,7 +139,7 @@
 (use-package neotree
   :bind ("<f8>" . neotree-toggle)
   :config
-  (setq neo-theme 'nerd)
+  (setq neo-theme 'ascii)
   (setq neo-smart-open t))
 
 (use-package dired+
