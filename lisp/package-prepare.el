@@ -34,20 +34,20 @@
   (defvar config-db
     (db-make '(db-hash :filename "~/.emacs.d/config-db"))))
 
+(defconst package-list-update-interval (days-to-time 2))
+
 (let ((last-check (db-get "package-last-update" config-db))
       (current (current-time)))
   (if last-check
-      (let* ((since-last-check (time-subtract current last-check))
-             (days-since-last-check (time-to-number-of-days since-last-check)))
-        (when (>= days-since-last-check 7)
+      (let ((since-last-check (time-subtract current last-check)))
+        (when (time-less-p package-list-update-interval since-last-check)
           (progn
-            (message (format "package-archive-contents too old (%d days)" days-since-last-check))
+            (message "package-archive-contents too old (%d days)"
+                     (time-to-number-of-days since-last-check))
             (package-refresh-contents)
             (db-put "package-last-update" current config-db))))
     (db-put "package-last-update" current config-db)))
 
-(require 'f)
-(require 'dash)
 (defun load-directory (directory)
   (let* ((files (f-files directory))
          (modules (-distinct (-map 'f-no-ext files)))
@@ -55,7 +55,7 @@
                                 (not (string-prefix-p "." (f-base path))))
                               modules)))
     (dolist (module nonhiddens)
-      (load module))))
-
+      (unless (ignore-errors (load module))
+        (warn "Failed to load %s" module)))))
 
 (provide 'package-prepare)
