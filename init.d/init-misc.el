@@ -129,12 +129,13 @@
          ("C-x C-f" . helm-find-files))
   :config
   (require 'helm-config)
+  (setq helm-M-x-fuzzy-match t
+        helm-mode-fuzzy-match t
+        helm-completion-in-region-fuzzy-match t)
   ;; to silence ad-redefinition-action
   (setq ad-redefinition-action 'accept)
   (helm-mode t)
-  (helm-autoresize-mode 1)
-  (setq helm-mode-fuzzy-match t)
-  (setq helm-completion-in-region-fuzzy-match t))
+  (helm-autoresize-mode 1))
 
 (use-package neotree
   :bind ("<f8>" . neotree-toggle)
