@@ -137,6 +137,12 @@
   (helm-mode t)
   (helm-autoresize-mode 1))
 
+(use-package shackle
+  :config
+  (shackle-mode 1)
+  (setq shackle-rules
+        '(("\\`\\*helm.*?\\*\\'" :regexp t :align t :ratio 0.4))))
+
 (use-package neotree
   :bind ("<f8>" . neotree-toggle)
   :config
