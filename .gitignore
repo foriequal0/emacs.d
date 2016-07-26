@@ -80,3 +80,6 @@ flycheck_*.el
 
 # projectiles files
 .projectile
+/ido.last
+/projectile.cache
+/.python-environments/
