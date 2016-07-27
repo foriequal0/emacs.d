@@ -1,14 +1,15 @@
 (require 'use-package)
 
+(defun my-prefer-ipython ()
+  (if (executable-find "ipython")
+      (setq python-shell-interpreter "ipython"
+            python-shell-interpreter-args "-i --simple-prompt")
+    (setq python-shell-interpreter "python"
+          python-shell-interpreter-args "-i")))
+
 (use-package python
   :mode ("\\.py\\'" . python-mode)
   :interpreter ("python" . python-mode)
-  :init
-  (add-hook 'python-mode-hook
-            (lambda ()
-              (when (executable-find "ipython")
-                (setq python-shell-interpreter "ipython"
-                      python-shell-interpreter-args "-i --simple-prompt"))))
   :config
   (add-to-list 'write-file-functions 'delete-trailing-whitespace))
 
@@ -16,8 +17,17 @@
   :after python
   :config
   (setq elpy-modules (remove 'elpy-module-highlight-indentation elpy-modules))
-  (pyvenv-activate "~/.emacs.d/.pyvenv")
   (elpy-enable))
+
+(use-package pyvenv
+  :after python
+  :init
+  ;; fallback pyvenv
+  (setq pyvenv-activate "~/.emacs.d/.pyvenv")
+  :config
+  (add-hook 'python-mode-hook (lambda() (hack-local-variables) (pyvenv-activate pyvenv-activate)))
+  (add-hook 'pyvenv-post-activate-hooks #'my-prefer-ipython)
+  (add-hook 'pyvenv-post-deactivate-hooks #'my-prefer-ipython))
 
 (use-package company-jedi
   :after python
