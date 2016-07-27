@@ -6,6 +6,6 @@
 (load "autoloads")
 
 (load "~/.emacs.d/custom.el" 'noerror)
-;(load "restore-window-size")
+;; (load "restore-window-size")
 
 (load-directory "~/.emacs.d/init.d")

@@ -81,27 +81,43 @@
 (use-package iresize
   :bind ("C-c i" . iresize-mode))
 
-(defun auto-fci-mode (&optional unused)
-  (if (> (window-width) fci-rule-column)
-      (fci-mode 1)
-    (fci-mode 0)))
+(defvar auto-fci-mode-supressed nil)
 
-(define-globalized-minor-mode global-fci-mode fci-mode
-  (lambda ()
-    (when (and
-           (not (string-match "^\*.*\*$" (buffer-name)))
-           (not (eq major-mode 'dired-mode))
-           (not (eq major-mode 'helm-mode))
-           (not (eq major-mode 'neotree-mode)))
-      (auto-fci-mode)
-      (add-hook 'after-change-major-mode-hook 'auto-fci-mode)
-      (add-hook 'window-configuration-change-hook 'auto-fci-mode))))
+(defun auto-fci-mode--auto-toggle (&optional unused)
+  (unless auto-fci-mode-supressed
+    (unless (or
+             (string-match "^\*.*\*$" (buffer-name))
+             (eq major-mode 'dired-mode)
+             (eq major-mode 'helm-mode)
+             (eq major-mode 'neotree-mode))
+      (if (> (window-width) fci-rule-column)
+          (fci-mode 1)
+        (fci-mode 0)))))
+
+(defun auto-fci-mode-supress ()
+  (setq auto-fci-mode-supressed t)
+  (fci-mode 0))
+
+(defun auto-fci-mode-recover ()
+  (setq auto-fci-mode-supressed nil)
+  (auto-fci-mode--auto-toggle))
+
+(define-minor-mode auto-fci-mode
+  nil nil nil nil
+  (if auto-fci-mode
+      (progn
+        (add-hook 'after-change-major-mode-hook 'auto-fci-mode--auto-toggle)
+        (add-hook 'window-configuration-change-hook 'auto-fci-mode--auto-toggle)
+        (auto-fci-mode--auto-toggle))
+    (remove-hook 'after-change-major-mode-hook 'auto-fci-mode--auto-toggle)
+    (remove-hook 'window-configuration-change-hook 'auto-fci-mode--auto-toggle)))
+
+(define-globalized-minor-mode global-auto-fci-mode auto-fci-mode auto-fci-mode)
 
 (use-package fill-column-indicator
   :init
-  (setq fci-rule-column 80
-        fci-handle-truncate-lines nil)
-  (global-fci-mode 1))
+  (setq fci-rule-column 80)
+  (global-auto-fci-mode 1))
 
 (use-package ibuffer-projectile
   :config (add-hook 'ibuffer-hook
@@ -188,5 +204,10 @@
 (use-package undo-tree
   :diminish undo-tree-mode
   :init (global-undo-tree-mode))
+
+(use-package lisp-mode
+  :ensure nil
+  :bind (:map emacs-lisp-mode-map
+              ("M-." . find-function)))
 
 (provide 'init-misc)

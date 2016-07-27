@@ -1,20 +1,28 @@
 (require 'use-package)
 
-(use-package company
-  :diminish company-mode
-  :bind ("TAB" . company-indent-or-complete-common)
-  :init
-  (global-company-mode)
-  (setq company-tooltip-align-annotations t))
-
 ;; hacky workaround for fci-mode
 (defun on-off-fci-before-company(command)
   (when (string= "show" command)
-    (turn-off-fci-mode))
+    (auto-fci-mode-supress))
   (when (string= "hide" command)
-    (turn-on-fci-mode)))
+    (auto-fci-mode-recover)))
 
-(advice-add 'company-call-frontends :before #'on-off-fci-before-company)
+(use-package company
+  :diminish company-mode
+  :bind (("TAB" . company-indent-or-complete-common)
+         :map company-mode-map
+         ("M-n" . company-manual-begin)
+         ("M-p" . company-manual-begin))
+  :init
+  (global-company-mode)
+  (setq company-tooltip-align-annotations t
+        company-selection-wrap-around t)
+  (advice-add 'company-call-frontends :before #'on-off-fci-before-company))
+
+(use-package company-flx
+  :after company
+  :config
+  (company-flx-mode +1))
 
 (use-package company-quickhelp
   :after company
