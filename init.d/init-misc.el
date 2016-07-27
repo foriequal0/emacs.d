@@ -81,25 +81,27 @@
 (use-package iresize
   :bind ("C-c i" . iresize-mode))
 
-(use-package fill-column-indicator
-  :init
-  (define-globalized-minor-mode global-fci-mode fci-mode
-    (lambda ()
-      (if (and
+(defun auto-fci-mode (&optional unused)
+  (if (> (window-width) fci-rule-column)
+      (fci-mode 1)
+    (fci-mode 0)))
+
+(define-globalized-minor-mode global-fci-mode fci-mode
+  (lambda ()
+    (when (and
            (not (string-match "^\*.*\*$" (buffer-name)))
            (not (eq major-mode 'dired-mode))
            (not (eq major-mode 'helm-mode))
            (not (eq major-mode 'neotree-mode)))
-          (fci-mode 1))))
-  (global-fci-mode 1)
-  :config
-  (setq fci-rule-column 80)
-  (defun auto-fci-mode (&optional unused)
-    (if (> (window-width) fci-rule-column)
-        (fci-mode 1)
-      (fci-mode 0)))
-  (add-hook 'after-change-major-mode-hook 'auto-fci-mode)
-  (add-hook 'window-configuration-change-hook 'auto-fci-mode))
+      (auto-fci-mode)
+      (add-hook 'after-change-major-mode-hook 'auto-fci-mode)
+      (add-hook 'window-configuration-change-hook 'auto-fci-mode))))
+
+(use-package fill-column-indicator
+  :init
+  (setq fci-rule-column 80
+        fci-handle-truncate-lines nil)
+  (global-fci-mode 1))
 
 (use-package ibuffer-projectile
   :config (add-hook 'ibuffer-hook
