@@ -15,6 +15,7 @@
 (use-package elpy
   :after python
   :config
+  (setq elpy-modules (remove 'elpy-module-highlight-indentation elpy-modules))
   (pyvenv-activate "~/.emacs.d/.pyvenv")
   (elpy-enable))
 
