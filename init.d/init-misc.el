@@ -116,6 +116,18 @@
 (use-package magit
   :defer t)
 
+(defun multi-term-dedicated-select-or-open ()
+  (interactive)
+  (if (multi-term-dedicated-window-p)
+      (pop-to-buffer (other-buffer (current-buffer) 1))
+    (unless (multi-term-dedicated-exist-p)
+      (multi-term-dedicated-open))
+    (multi-term-dedicated-select)))
+
+(use-package multi-term
+  :bind ("C-c C-x" . multi-term-dedicated-select-or-open)
+  :init (require 'multi-term))
+
 (use-package diff-hl
   :init (global-diff-hl-mode)
   :config

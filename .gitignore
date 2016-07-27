@@ -83,3 +83,4 @@ flycheck_*.el
 /ido.last
 /projectile.cache
 /.python-environments/
+/.pyvenv/
