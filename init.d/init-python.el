@@ -7,20 +7,10 @@
     (setq python-shell-interpreter "python"
           python-shell-interpreter-args "-i")))
 
-(defvar python-mode-pre-hook nil)
-
-(defvar python-mode-post-hook nil)
-
-(defun python-mode-advice (orig-fun &rest args)
-  (run-hooks 'python-mode-pre-hook)
-  (apply orig-fun args)
-  (run-hooks 'python-mode-post-hook))
-
 (use-package python
   :mode ("\\.py\\'" . python-mode)
   :interpreter ("python" . python-mode)
   :config
-  (advice-add 'python-mode :around #'python-mode-advice)
   (add-to-list 'write-file-functions 'delete-trailing-whitespace))
 
 (use-package elpy
@@ -35,7 +25,7 @@
   ;; fallback pyvenv
   (setq pyvenv-activate "~/.emacs.d/.pyvenv")
   :config
-  (add-hook 'python-mode-post-hook (lambda() (pyvenv-activate pyvenv-activate)))
+  (add-hook 'python-mode-hook 'pyvenv-mode)
   (add-hook 'pyvenv-post-activate-hooks #'my-prefer-ipython)
   (add-hook 'pyvenv-post-deactivate-hooks #'my-prefer-ipython))
 

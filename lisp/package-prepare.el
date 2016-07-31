@@ -24,10 +24,6 @@
 (use-package f)
 (use-package s)
 (use-package dash)
-(use-package auto-compile
-  :config
-  (auto-compile-on-load-mode)
-  (auto-compile-on-save-mode))
 (use-package better-defaults)
 (use-package db
   :config

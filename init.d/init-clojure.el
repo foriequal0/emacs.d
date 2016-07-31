@@ -4,7 +4,7 @@
   :mode "\\.clj\\'")
 
 (use-package cider
-  :after clojure-mode
-  :config (cider-mode 1))
+  :init
+  (add-hook 'clojure-mode-hook #'cider-mode))
 
 (provide 'init-clojure.el)
