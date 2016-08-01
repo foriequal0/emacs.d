@@ -10,8 +10,10 @@
 (use-package python
   :mode ("\\.py\\'" . python-mode)
   :interpreter ("python" . python-mode)
-  :config
-  (add-to-list 'write-file-functions 'delete-trailing-whitespace))
+  :init
+  (add-hook 'python-mode
+            (lambda ()
+              (add-to-list 'write-file-functions 'delete-trailing-whitespace))))
 
 (use-package elpy
   :after python
