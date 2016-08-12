@@ -210,4 +210,9 @@
   :bind (:map emacs-lisp-mode-map
               ("M-." . find-function)))
 
+(use-package lua-mode
+  :mode "\\.lua\\'"
+  :interpreter "lua")
+
+
 (provide 'init-misc)
