@@ -12,9 +12,7 @@
   :mode "\\.hs\\'"
   :config
   (bind-keys :map haskell-mode-map
-              ("C-c C-z" . haskell-interactive-bring)
-              ("M-." . haskell-mode-jump-to-def-or-tag)
-              ("<f9>" . haskell--mark-navigate-imports))
+             ("<f9>" . haskell--mark-navigate-imports))
   ;; require 'cabal install hasktags'
   ;; (custom-set-variables '(haskell-tags-on-save t))
   (add-to-list 'write-file-functions 'delete-trailing-whitespace)
@@ -25,20 +23,8 @@
 
   (add-hook 'haskell-mode-hook #'haskell-doc-mode))
 
-(use-package flycheck-haskell
-  :after haskell-mode
-  :config
-  (flycheck-haskell-setup))
-
-;; require 'stack install ghc-mod'
-(use-package ghc
-  :commands ghc-init)
-
-(use-package company-ghc
-  :after haskell-mode
-  :config
-  (ghc-init)
-  (add-to-list 'company-backends 'company-ghc)
-  (custom-set-variables '(company-ghc-show-info t)))
+(use-package intero
+  :init
+  (add-hook 'haskell-mode-hook #'intero-mode))
 
 (provide 'init-haskell)
