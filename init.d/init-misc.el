@@ -100,6 +100,8 @@
 
 (defun auto-fci-mode-recover ()
   (setq auto-fci-mode-supressed nil)
+  (setq fci-handle-truncate-lines nil
+        truncate-lines nil)
   (auto-fci-mode--auto-toggle))
 
 (define-minor-mode auto-fci-mode
@@ -149,7 +151,6 @@
 (use-package diff-hl
   :init (global-diff-hl-mode)
   :config
-  (diff-hl-flydiff-mode)
   (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh))
 
 (use-package helm
@@ -178,12 +179,6 @@
   :config
   (setq neo-theme 'ascii)
   (setq neo-smart-open t))
-
-(use-package dired+
-  :config
-  (define-key dired-mode-map [mouse-2] #'diredp-mouse-find-file-reuse-dir-buffer)
-  (define-key dired-mode-map [S-mouse-2] #'diredp-mouse-find-file-other-frame)
-  (diredp-toggle-find-file-reuse-dir 1))
 
 (use-package avy
   :bind (("C-:" . avy-goto-char)

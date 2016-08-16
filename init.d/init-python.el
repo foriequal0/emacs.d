@@ -11,9 +11,9 @@
   :mode ("\\.py\\'" . python-mode)
   :interpreter ("python" . python-mode)
   :init
-  (add-hook 'python-mode
+  (add-hook 'python-mode-hook
             (lambda ()
-              (add-to-list 'write-file-functions 'delete-trailing-whitespace))))
+              (add-hook 'before-save-hook 'delete-trailing-whitespace))))
 
 (use-package elpy
   :after python
