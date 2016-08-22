@@ -81,6 +81,13 @@
 (use-package iresize
   :bind ("C-c i" . iresize-mode))
 
+(define-key dired-mode-map (kbd "RET")
+  'dired-find-alternate-file) ; was dired-advertised-find-file
+
+(define-key dired-mode-map (kbd "^")
+  (lambda () (interactive) (find-alternate-file "..")))
+;; was dired-up-directory
+
 (defvar auto-fci-mode-supressed nil)
 
 (defun auto-fci-mode--auto-toggle (&optional unused)
