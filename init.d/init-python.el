@@ -13,6 +13,7 @@
   :init
   (add-hook 'python-mode-hook
             (lambda ()
+              (my-prefer-ipython)
               (add-hook 'before-save-hook 'delete-trailing-whitespace))))
 
 (use-package elpy
@@ -20,16 +21,6 @@
   :config
   (setq elpy-modules (remove 'elpy-module-highlight-indentation elpy-modules))
   (elpy-enable))
-
-(use-package pyvenv
-  :after python
-  :init
-  ;; fallback pyvenv
-  (setq pyvenv-activate "~/.emacs.d/.pyvenv")
-  :config
-  (add-hook 'python-mode-hook 'pyvenv-mode)
-  (add-hook 'pyvenv-post-activate-hooks #'my-prefer-ipython)
-  (add-hook 'pyvenv-post-deactivate-hooks #'my-prefer-ipython))
 
 (use-package company-jedi
   :after python
