@@ -117,9 +117,11 @@
       (progn
         (add-hook 'after-change-major-mode-hook 'auto-fci-mode--auto-toggle)
         (add-hook 'window-configuration-change-hook 'auto-fci-mode--auto-toggle)
+        (add-hook 'window-size-change-functions 'auto-fci-mode--auto-toggle)
         (auto-fci-mode--auto-toggle))
     (remove-hook 'after-change-major-mode-hook 'auto-fci-mode--auto-toggle)
-    (remove-hook 'window-configuration-change-hook 'auto-fci-mode--auto-toggle)))
+    (remove-hook 'window-configuration-change-hook 'auto-fci-mode--auto-toggle)
+    (remove-hook 'window-size-change-functions 'auto-fci-mode--auto-toggle)))
 
 (define-globalized-minor-mode global-auto-fci-mode auto-fci-mode auto-fci-mode)
 
@@ -187,6 +189,18 @@
   (setq neo-theme 'ascii)
   (setq neo-smart-open t))
 
+(defun my-dired-init()
+  "Bunch of stuff to run for dired, either immediately or when it's loaded."
+  (define-key dired-mode-map [return] 'dired-single-buffer)
+  (define-key dired-mode-map [mouse-2] 'dired-single-buffer-mouse)
+  (define-key dired-mode-map "^" (lambda () (interactive) (dired-single-buffer ".."))))
+
+(use-package dired-single
+  :init
+  (if (boundp 'dired-mode-map)
+      (my-dired-init)
+    (add-hook 'dired-load-hook 'my-dired-init)))
+
 (use-package avy
   :bind (("C-:" . avy-goto-char)
          ("C-'" . avy-goto-char-2)
@@ -216,5 +230,14 @@
   :mode "\\.lua\\'"
   :interpreter "lua")
 
+(use-package groovy-mode
+  :mode (("\\.groovy\\'" . groovy-mode)))
+
+(use-package gradle-mode
+  :mode "\\.gradle\\'"
+  :config (add-hook 'gradle-mode-hook 'groovy-mode))
+
+(use-package adoc-mode
+  :mode "\\.adoc\\'")
 
 (provide 'init-misc)
