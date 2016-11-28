@@ -1,3 +1,5 @@
+(package-initialize)
+
 (setq load-prefer-newer t)
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 

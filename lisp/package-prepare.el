@@ -7,8 +7,6 @@
         ("org" . "http://orgmode.org/elpa/")
         ("sunrise" . "http://joseito.republika.pl/sunrise-commander/")))
 
-(package-initialize)
-
 (unless package-archive-contents
   (package-refresh-contents))
 

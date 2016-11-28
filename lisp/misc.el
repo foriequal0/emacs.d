@@ -1,7 +1,7 @@
 
 ;;;###autoload
-(defun emacs ()
-  (interactive)
-  (start-process "Emacs" nil (executable-find "emacs")))
+(defun emacs (path)
+  (interactive "GFind file or url: ")
+  (start-process "Emacs" nil (executable-find "emacs") path))
 
 (provide 'misc)
