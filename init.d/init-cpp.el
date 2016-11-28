@@ -20,13 +20,18 @@
   (setq dummy-h-mode-default-major-mode 'c++-mode)
   (setq dummy-h-mode-search-limit 60000))
 
+(defun irony-mode-when-supported ()
+  (require 'irony)
+  (when (member major-mode irony-supported-major-modes)
+    (irony-mode 1)))
+
 ; it needs CMake, libclang
 (use-package irony
   :defer t
   :diminish irony-mode
   :init
-  (add-hook 'c++-mode-hook 'irony-mode)
-  (add-hook 'c-mode-hook 'irony-mode)
+  (add-hook 'c++-mode-hook 'irony-mode-when-supported)
+  (add-hook 'c-mode-hook 'irony-mode-when-supported)
   :config
 ; Replace the `completion-at-point' and `complete-symbol' bindings in
 ; irony-mode's buffer by irony-mode's function
