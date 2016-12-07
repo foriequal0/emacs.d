@@ -20,11 +20,16 @@
   :after python
   :config
   (setq elpy-modules (remove 'elpy-module-highlight-indentation elpy-modules))
+  (setq elpy-rpc-backend "jedi")
   (elpy-enable))
 
 (use-package company-jedi
   :after python
   :config
   (add-to-list 'company-backends 'company-jedi))
+
+(use-package auto-virtualenv
+  :config
+  (add-hook 'python-mode-hook 'auto-virtualenv-set-virtualenv))
 
 (provide 'init-python)

@@ -19,6 +19,7 @@
 ;(display-time-mode 1)
 
 ;(display-battery-mode 1)
+(setq gdb-many-windows t)
 
 (global-auto-revert-mode 1)
 
