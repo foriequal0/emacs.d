@@ -14,7 +14,7 @@
   (add-hook 'python-mode-hook
             (lambda ()
               (my-prefer-ipython)
-              (add-hook 'before-save-hook 'delete-trailing-whitespace))))
+              (add-hook 'before-save-hook 'delete-trailing-whitespace nil t))))
 
 (use-package elpy
   :after python

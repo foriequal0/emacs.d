@@ -24,8 +24,17 @@
 (global-auto-revert-mode 1)
 
 (setq-default indent-tabs-mode t)
-(add-hook 'emacs-lisp-mode-hook (lambda () (setq indent-tabs-mode nil)))
-(add-hook 'lisp-mode-hook (lambda () (setq indent-tabs-mode nil)))
+(defconst indent-space-mode-hooks
+        '(emacs-lisp-mode-hook
+          lisp-mode-hook
+          lua-mode-hook))
+(dolist (hook indent-space-mode-hooks)
+  (message (symbol-name hook))
+  (add-hook hook (lambda () (setq indent-tabs-mode nil))))
+
+(use-package dtrt-indent
+  :diminish dirt-indent-mode
+  :config (dtrt-indent-mode 1))
 
 (defun close-and-kill-this-pane ()
   "If there are multiple windows, then close this pane and kill the buffer in it also."
@@ -41,6 +50,7 @@
                   (if (delete-frame-enabled-p)
                       (delete-frame)
                     (save-buffers-kill-emacs))))
+(global-set-key (kbd "C-J") 'join-line)
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
@@ -116,13 +126,13 @@
   nil nil nil nil
   (if auto-fci-mode
       (progn
-        (add-hook 'after-change-major-mode-hook 'auto-fci-mode--auto-toggle)
-        (add-hook 'window-configuration-change-hook 'auto-fci-mode--auto-toggle)
-        (add-hook 'window-size-change-functions 'auto-fci-mode--auto-toggle)
+        (add-hook 'after-change-major-mode-hook 'auto-fci-mode--auto-toggle nil t)
+        (add-hook 'window-configuration-change-hook 'auto-fci-mode--auto-toggle nil t)
+        (add-hook 'window-size-change-functions 'auto-fci-mode--auto-toggle nil t)
         (auto-fci-mode--auto-toggle))
-    (remove-hook 'after-change-major-mode-hook 'auto-fci-mode--auto-toggle)
-    (remove-hook 'window-configuration-change-hook 'auto-fci-mode--auto-toggle)
-    (remove-hook 'window-size-change-functions 'auto-fci-mode--auto-toggle)))
+    (remove-hook 'after-change-major-mode-hook 'auto-fci-mode--auto-toggle t)
+    (remove-hook 'window-configuration-change-hook 'auto-fci-mode--auto-toggle t)
+    (remove-hook 'window-size-change-functions 'auto-fci-mode--auto-toggle t)))
 
 (define-globalized-minor-mode global-auto-fci-mode auto-fci-mode auto-fci-mode)
 
@@ -261,5 +271,10 @@ is binary, activate `hexl-mode'."
       (hexl-mode))))
 
 (add-hook 'find-file-hooks 'hexl-if-binary)
+
+(use-package company-coq
+  :if (load "~/.emacs.d/PG/generic/proof-site" 'noerror)
+  :config
+  (add-hook 'coq-mode-hook 'company-coq-mode))
 
 (provide 'init-misc)
