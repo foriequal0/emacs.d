@@ -24,6 +24,7 @@
 (setq gdb-many-windows t)
 
 (global-auto-revert-mode 1)
+(global-eldoc-mode)
 
 (setq-default indent-tabs-mode t)
 (defconst indent-space-mode-hooks
@@ -196,8 +197,30 @@
   (setq shackle-rules
         '(("\\`\\*helm.*?\\*\\'" :regexp t :align t :ratio 0.4))))
 
+(defun neotree-project-dir-toggle ()
+  "Open NeoTree using the project root, using find-file-in-project,
+or the current buffer directory."
+  (interactive)
+  (let ((project-dir
+         (ignore-errors
+           ;;; Pick one: projectile or find-file-in-project
+           (projectile-project-root)
+           ; (ffip-project-root)
+           ))
+        (file-name (buffer-file-name))
+        (neo-smart-open t))
+    (if (and (fboundp 'neo-global--window-exists-p)
+             (neo-global--window-exists-p))
+        (neotree-hide)
+      (progn
+        (neotree-show)
+        (if project-dir
+            (neotree-dir project-dir))
+        (if file-name
+            (neotree-find file-name))))))
+
 (use-package neotree
-  :bind ("<f8>" . neotree-toggle)
+  :bind ("<f8>" . neotree-project-dir-toggle)
   :config
   (setq neo-theme 'ascii)
   (setq neo-smart-open t))
@@ -278,5 +301,10 @@ is binary, activate `hexl-mode'."
   :if (load "~/.emacs.d/PG/generic/proof-site" 'noerror)
   :config
   (add-hook 'coq-mode-hook 'company-coq-mode))
+
+;(use-package lsp-mode
+;  :config
+;  (global-lsp-mode t)
+;  (require 'lsp-flycheck))
 
 (provide 'init-misc)

@@ -4,12 +4,13 @@
   :mode "\\.php\\'"
   :mode "\\.inc\\'"
   :config
-  (require 'php-ext))
+  (require 'php-ext)
+  (add-hook 'php-mode-hook
+            (lambda () (add-to-list
+                        'company-backends 'company-ac-php-backend))))
 
 (use-package company-php
-  :defer t
-  :init
-  (add-to-list 'company-backends 'company-ac-php-backend))
+  :defer t)
 
 (add-hook 'php-mode-hook
           (lambda ()

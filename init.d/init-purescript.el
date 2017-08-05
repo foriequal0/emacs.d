@@ -12,14 +12,13 @@
   :defer t)
 
 (use-package flycheck-purescript
-  :after flycheck
-  :init
-  (flycheck-purescript-setup))
+  :defer t)
 
 (add-hook 'purescript-mode-hook
- (lambda ()
-   (psc-ide-mode)
-   (turn-on-purescript-indentation))
-   (inferior-psci-mode))
+          (lambda ()
+            (flycheck-purescript-setup)
+            (psc-ide-mode)
+            (turn-on-purescript-indentation)
+            (inferior-psci-mode)))
 
 (provide 'init-purescript)
